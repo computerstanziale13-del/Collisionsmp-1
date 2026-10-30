@@ -37,6 +37,9 @@ const client = new Client({
 const SERVER_IP = "mc.collisionsmp.it";
 const SERVER_PORT = 25565;
 
+// Immagine logo fissa in alto a destra
+const LOGO_URL = "https://cdn.discordapp.com/attachments/1500508618104246366/1565828203925340160/2ec37acb-c915-4f53-a551-402542e5475a.png?ex=6ae652a7&is=6ae50127&hm=509e6878139c284239c0d070296f508cf5c2a951d38d0837be048544a6d3d747&";
+
 // Configurazione Ruoli
 const STAFF_ROLE_ID = "1541326834996875316";
 const ADMIN_ROLE_IDS = [
@@ -74,6 +77,7 @@ async function logSanctionToForum(guild, title, fields, color) {
       .setTitle(title)
       .setColor(color)
       .addFields(fields)
+      .setThumbnail(LOGO_URL)
       .setTimestamp();
 
     await forumChannel.threads.create({
@@ -285,6 +289,7 @@ client.on("interactionCreate", async (interaction) => {
     const embed = new EmbedBuilder()
       .setTitle(`⚙️ CHANGELOG: ${options.getString("titolo")}`)
       .setDescription(options.getString("testo"))
+      .setThumbnail(LOGO_URL)
       .setColor(0x0099ff);
     await interaction.channel.send({ embeds: [embed] });
     await interaction.reply({
@@ -300,6 +305,7 @@ client.on("interactionCreate", async (interaction) => {
     const embed = new EmbedBuilder()
       .setTitle("📢 NUOVO ANNUNCIO 📢")
       .setDescription(options.getString("messaggio"))
+      .setThumbnail(LOGO_URL)
       .setColor(0xffd700);
     await interaction.channel.send({ embeds: [embed] });
     await interaction.reply({
@@ -313,6 +319,7 @@ client.on("interactionCreate", async (interaction) => {
       const embed = new EmbedBuilder()
         .setTitle("🌐 Stato CollisionSMP Network")
         .setColor(0x00ff00)
+        .setThumbnail(LOGO_URL)
         .addFields(
           { name: "Status", value: "🟢 Online", inline: true },
           {
@@ -331,6 +338,7 @@ client.on("interactionCreate", async (interaction) => {
       const embed = new EmbedBuilder()
         .setTitle("🌐 Stato CollisionSMP Network")
         .setColor(0xff0000)
+        .setThumbnail(LOGO_URL)
         .addFields({
           name: "Status",
           value: "🔴 Offline / Manutenzione",
@@ -344,6 +352,7 @@ client.on("interactionCreate", async (interaction) => {
     const embed = new EmbedBuilder()
       .setTitle("📊 Statistiche Main Bot")
       .setColor(0x800080)
+      .setThumbnail(LOGO_URL)
       .addFields(
         {
           name: "Latenza",
@@ -506,6 +515,7 @@ client.on("interactionCreate", async (interaction) => {
     const embed = new EmbedBuilder()
       .setTitle("⚠️ Avvertimento Discord")
       .setColor(0xffa500)
+      .setThumbnail(LOGO_URL)
       .addFields({ name: "Motivo", value: reason });
     try {
       await user.send({ embeds: [embed] });
