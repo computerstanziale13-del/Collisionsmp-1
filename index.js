@@ -89,7 +89,8 @@ async function logSanctionToForum(guild, title, fields, color) {
   }
 }
 
-client.once("clientReady", async () => {
+// NOTA: Usiamo "ready" per assicurarci che l'avvio e la registrazione dei comandi partano correttamente
+client.once("ready", async () => {
   console.log(`Bot Principale online come: ${client.user.tag}`);
 
   const commands = [
