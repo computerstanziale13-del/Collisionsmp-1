@@ -89,7 +89,6 @@ async function logSanctionToForum(guild, title, fields, color) {
   }
 }
 
-// NOTA: Usiamo "ready" per assicurarci che l'avvio e la registrazione dei comandi partano correttamente
 client.once("ready", async () => {
   console.log(`Bot Principale online come: ${client.user.tag}`);
 
@@ -255,7 +254,7 @@ client.once("ready", async () => {
     });
     console.log("Comandi Slash del Main Bot registrati con successo!");
   } catch (error) {
-    console.error(error);
+    console.error("Errore registrazione comandi REST:", error);
   }
 
   setInterval(updateMinecraftStatus, 60000);
@@ -620,4 +619,11 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
-client.login(process.env.TOKEN_MAIN_BOT);
+// --- GESTIONE ERRORI E LOGIN SICURO ---
+client.on("error", (error) => {
+  console.error("❌ ERRORE DEL CLIENT DISCORD:", error);
+});
+
+client.login(process.env.TOKEN_MAIN_BOT).catch((error) => {
+  console.error("❌ ERRORE CRITICO NEL LOGIN DEL BOT (TOKEN ERRATO O MANCANTE):", error);
+});
